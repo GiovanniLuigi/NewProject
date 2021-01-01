@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		11F52E37259E529700720596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E36259E529700720596 /* AppDelegate.swift */; };
 		11F52E39259E529700720596 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E38259E529700720596 /* SceneDelegate.swift */; };
-		11F52E3B259E529700720596 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E3A259E529700720596 /* ViewController.swift */; };
+		11F52E3B259E529700720596 /* TravelLocationsMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E3A259E529700720596 /* TravelLocationsMapController.swift */; };
 		11F52E3E259E529700720596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11F52E3C259E529700720596 /* Main.storyboard */; };
 		11F52E41259E529700720596 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E3F259E529700720596 /* VirtualTourist.xcdatamodeld */; };
 		11F52E43259E529800720596 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11F52E42259E529800720596 /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 		11F52E33259E529700720596 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11F52E36259E529700720596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11F52E38259E529700720596 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		11F52E3A259E529700720596 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		11F52E3A259E529700720596 /* TravelLocationsMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsMapController.swift; sourceTree = "<group>"; };
 		11F52E3D259E529700720596 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11F52E40259E529700720596 /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		11F52E42259E529800720596 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,16 +58,48 @@
 		11F52E35259E529700720596 /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
-				11F52E36259E529700720596 /* AppDelegate.swift */,
-				11F52E38259E529700720596 /* SceneDelegate.swift */,
-				11F52E3A259E529700720596 /* ViewController.swift */,
-				11F52E3C259E529700720596 /* Main.storyboard */,
-				11F52E42259E529800720596 /* Assets.xcassets */,
-				11F52E44259E529800720596 /* LaunchScreen.storyboard */,
-				11F52E47259E529800720596 /* Info.plist */,
-				11F52E3F259E529700720596 /* VirtualTourist.xcdatamodeld */,
+				11F52E50259E532300720596 /* SupportingFiles */,
+				11F52E4F259E531E00720596 /* Controller */,
+				11F52E4E259E531600720596 /* View */,
+				11F52E4D259E531000720596 /* Model */,
 			);
 			path = VirtualTourist;
+			sourceTree = "<group>";
+		};
+		11F52E4D259E531000720596 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11F52E3F259E529700720596 /* VirtualTourist.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		11F52E4E259E531600720596 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11F52E3C259E529700720596 /* Main.storyboard */,
+				11F52E44259E529800720596 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		11F52E4F259E531E00720596 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				11F52E3A259E529700720596 /* TravelLocationsMapController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		11F52E50259E532300720596 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				11F52E42259E529800720596 /* Assets.xcassets */,
+				11F52E47259E529800720596 /* Info.plist */,
+				11F52E36259E529700720596 /* AppDelegate.swift */,
+				11F52E38259E529700720596 /* SceneDelegate.swift */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11F52E41259E529700720596 /* VirtualTourist.xcdatamodeld in Sources */,
-				11F52E3B259E529700720596 /* ViewController.swift in Sources */,
+				11F52E3B259E529700720596 /* TravelLocationsMapController.swift in Sources */,
 				11F52E37259E529700720596 /* AppDelegate.swift in Sources */,
 				11F52E39259E529700720596 /* SceneDelegate.swift in Sources */,
 			);
@@ -290,7 +322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A3J488KW82;
-				INFOPLIST_FILE = VirtualTourist/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/VirtualTourist/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,7 +330,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = pomappo.com.VirtualTourist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,7 +340,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A3J488KW82;
-				INFOPLIST_FILE = VirtualTourist/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/VirtualTourist/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +348,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = pomappo.com.VirtualTourist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
