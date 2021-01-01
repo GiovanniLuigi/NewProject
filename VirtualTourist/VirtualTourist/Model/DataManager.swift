@@ -30,7 +30,6 @@ class DataManager {
             }
             self?.autosave()
             completion?()
-            print("loaded")
         }
     }
     
@@ -51,15 +50,14 @@ class DataManager {
 // Handles user preferences
 extension DataManager {
     
-    func save<T: Codable>(object: T) {
-        print(String(describing: T.self))
+    func save<T: Codable>(object: T, key: String? = nil) {
         if let data = try? JSONEncoder().encode(object) {
-            UserDefaults.standard.set(data, forKey: String(describing: T.self))
+            UserDefaults.standard.set(data, forKey: key ?? String(describing: T.self))
         }
     }
     
-    func get<T: Codable>() -> T? {
-        if let data = UserDefaults.standard.value(forKey: String(describing: T.self)) as? Data ,let object = try? JSONDecoder().decode(T.self, from: data) {
+    func get<T: Codable>(key: String? = nil) -> T? {
+        if let data = UserDefaults.standard.value(forKey: key ?? String(describing: T.self)) as? Data ,let object = try? JSONDecoder().decode(T.self, from: data) {
             return object
         }
         return nil

@@ -25,8 +25,6 @@ class TravelLocationsMapViewController: UIViewController {
             mapView.setRegion(region.toMKCoordinateRegion(), animated: false)
         }
     }
-    
-    
 }
 
 
