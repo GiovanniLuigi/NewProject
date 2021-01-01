@@ -19,11 +19,34 @@ class TravelLocationsMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupMapView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    private func setupMapView() {
         mapView.delegate = self
         
         if let region: CoordinateRegion = dataManager.get() {
             mapView.setRegion(region.toMKCoordinateRegion(), animated: false)
         }
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        mapView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        guard gestureRecognizer.state == .began else {
+            return
+        }
+        let point = gestureRecognizer.location(in: mapView)
+        let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
     }
 }
 
@@ -33,21 +56,12 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
         let region = mapView.region.toCoordinateRegion()
         dataManager.save(object: region)
     }
-}
-
-extension MKCoordinateRegion {
-    func toCoordinateRegion() -> CoordinateRegion {
-        return CoordinateRegion(centerLatitude: center.latitude, latitudeDelta: span.latitudeDelta, centerLongitude: center.longitude, longitudeDelta: span.longitudeDelta)
-    }
-}
-
-struct CoordinateRegion: Codable {
-    let centerLatitude: Double
-    let latitudeDelta: Double
-    let centerLongitude: Double
-    let longitudeDelta: Double
     
-    func toMKCoordinateRegion() -> MKCoordinateRegion {
-        return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude), span: MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta))
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let coordinate = view.annotation?.coordinate, let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoAlbumViewController.self)) as? PhotoAlbumViewController {
+            vc.coordinate = coordinate
+            navigationController?.pushViewController(vc, animated: true)
+            view.setSelected(false, animated: false)
+        }
     }
 }

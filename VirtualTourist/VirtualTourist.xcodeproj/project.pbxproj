@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1144588B259F644F002C7381 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1144588A259F644F002C7381 /* DataManager.swift */; };
 		119DBCA6259F766D00CC9B2B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119DBCA5259F766D00CC9B2B /* MapKit.framework */; };
+		119DBCA9259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DBCA8259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift */; };
+		119DBCAB259FD9FB00CC9B2B /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DBCAA259FD9FB00CC9B2B /* CoordinateRegion.swift */; };
+		119DBCAD259FDC6F00CC9B2B /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DBCAC259FDC6F00CC9B2B /* PhotoAlbumViewController.swift */; };
 		11F52E37259E529700720596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E36259E529700720596 /* AppDelegate.swift */; };
 		11F52E39259E529700720596 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E38259E529700720596 /* SceneDelegate.swift */; };
 		11F52E3B259E529700720596 /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E3A259E529700720596 /* TravelLocationsMapViewController.swift */; };
@@ -21,6 +24,9 @@
 /* Begin PBXFileReference section */
 		1144588A259F644F002C7381 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		119DBCA5259F766D00CC9B2B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		119DBCA8259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
+		119DBCAA259FD9FB00CC9B2B /* CoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateRegion.swift; sourceTree = "<group>"; };
+		119DBCAC259FDC6F00CC9B2B /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		11F52E33259E529700720596 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11F52E36259E529700720596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11F52E38259E529700720596 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +58,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		119DBCA7259FD9C400CC9B2B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				119DBCA8259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		11F52E2A259E529700720596 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +86,7 @@
 		11F52E35259E529700720596 /* VirtualTourist */ = {
 			isa = PBXGroup;
 			children = (
+				119DBCA7259FD9C400CC9B2B /* Extensions */,
 				11F52E50259E532300720596 /* SupportingFiles */,
 				11F52E4F259E531E00720596 /* Controller */,
 				11F52E4E259E531600720596 /* View */,
@@ -85,6 +100,7 @@
 			children = (
 				11F52E3F259E529700720596 /* VirtualTourist.xcdatamodeld */,
 				1144588A259F644F002C7381 /* DataManager.swift */,
+				119DBCAA259FD9FB00CC9B2B /* CoordinateRegion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -102,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				11F52E3A259E529700720596 /* TravelLocationsMapViewController.swift */,
+				119DBCAC259FDC6F00CC9B2B /* PhotoAlbumViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -189,10 +206,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				11F52E41259E529700720596 /* VirtualTourist.xcdatamodeld in Sources */,
+				119DBCA9259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift in Sources */,
 				11F52E3B259E529700720596 /* TravelLocationsMapViewController.swift in Sources */,
+				119DBCAD259FDC6F00CC9B2B /* PhotoAlbumViewController.swift in Sources */,
 				11F52E37259E529700720596 /* AppDelegate.swift in Sources */,
 				1144588B259F644F002C7381 /* DataManager.swift in Sources */,
 				11F52E39259E529700720596 /* SceneDelegate.swift in Sources */,
+				119DBCAB259FD9FB00CC9B2B /* CoordinateRegion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
