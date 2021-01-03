@@ -8,10 +8,13 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class TravelLocationsMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    var pins = [Pin]()
     
     var dataManager: DataManager {
         return DataManager.shared
@@ -36,6 +39,17 @@ class TravelLocationsMapViewController: UIViewController {
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         mapView.addGestureRecognizer(longPressGesture)
+        
+        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+        if let result = try? dataManager.viewContext.fetch(fetchRequest) {
+            pins = result
+            for (i, pin) in pins.enumerated() {
+                let annotation = MyAnnotation()
+                annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+                annotation.index = i
+                mapView.addAnnotation(annotation)
+            }
+        }
     }
     
     @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -44,12 +58,19 @@ class TravelLocationsMapViewController: UIViewController {
         }
         let point = gestureRecognizer.location(in: mapView)
         let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
+        
+        let pin = Pin(context: dataManager.viewContext)
+        pin.latitude = coordinate.latitude
+        pin.longitude = coordinate.longitude
+        dataManager.saveContext()
+       
+        pins.append(pin)
+        let annotation = MyAnnotation()
         annotation.coordinate = coordinate
+        annotation.index = pins.count-1
         mapView.addAnnotation(annotation)
     }
 }
-
 
 extension TravelLocationsMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -58,8 +79,11 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let coordinate = view.annotation?.coordinate, let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoAlbumViewController.self)) as? PhotoAlbumViewController {
-            vc.coordinate = coordinate
+        if let annotation = view.annotation as? MyAnnotation,
+            let index = annotation.index,
+            let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoAlbumViewController.self)) as? PhotoAlbumViewController {
+            let pin = pins[index]
+            vc.pin = pin
             navigationController?.pushViewController(vc, animated: true)
             view.setSelected(false, animated: false)
         }

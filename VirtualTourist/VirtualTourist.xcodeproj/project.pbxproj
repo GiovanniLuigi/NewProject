@@ -19,6 +19,7 @@
 		11F52E41259E529700720596 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11F52E3F259E529700720596 /* VirtualTourist.xcdatamodeld */; };
 		11F52E43259E529800720596 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11F52E42259E529800720596 /* Assets.xcassets */; };
 		11F52E46259E529800720596 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11F52E44259E529800720596 /* LaunchScreen.storyboard */; };
+		11F6E1D125A1F63700DEDF6A /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F6E1D025A1F63700DEDF6A /* MyAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		11F52E42259E529800720596 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11F52E45259E529800720596 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11F52E47259E529800720596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11F6E1D025A1F63700DEDF6A /* MyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			children = (
 				11F52E3C259E529700720596 /* Main.storyboard */,
 				11F52E44259E529800720596 /* LaunchScreen.storyboard */,
+				11F6E1D025A1F63700DEDF6A /* MyAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			files = (
 				11F52E41259E529700720596 /* VirtualTourist.xcdatamodeld in Sources */,
 				119DBCA9259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift in Sources */,
+				11F6E1D125A1F63700DEDF6A /* MyAnnotation.swift in Sources */,
 				11F52E3B259E529700720596 /* TravelLocationsMapViewController.swift in Sources */,
 				119DBCAD259FDC6F00CC9B2B /* PhotoAlbumViewController.swift in Sources */,
 				11F52E37259E529700720596 /* AppDelegate.swift in Sources */,

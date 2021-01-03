@@ -11,7 +11,7 @@ import MapKit
 
 class PhotoAlbumViewController: UIViewController {
 
-    var coordinate: CLLocationCoordinate2D?
+    var pin: Pin?
     
     override func viewDidLoad() {
         super.viewDidLoad()
