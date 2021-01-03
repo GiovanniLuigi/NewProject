@@ -15,6 +15,7 @@ class PhotoAlbumViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Client.shared.getPhotosFrom(lat: pin!.latitude, lon: pin!.longitude)
     }
     
     override func viewWillAppear(_ animated: Bool) {
