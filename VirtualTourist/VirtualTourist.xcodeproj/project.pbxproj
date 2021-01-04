@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1144588B259F644F002C7381 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1144588A259F644F002C7381 /* DataManager.swift */; };
+		116B44EF25A39B38009BB588 /* PhotoAlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116B44EE25A39B38009BB588 /* PhotoAlbumCollectionViewCell.swift */; };
 		119DBCA6259F766D00CC9B2B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119DBCA5259F766D00CC9B2B /* MapKit.framework */; };
 		119DBCA9259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DBCA8259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift */; };
 		119DBCAB259FD9FB00CC9B2B /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119DBCAA259FD9FB00CC9B2B /* CoordinateRegion.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		1144588A259F644F002C7381 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		116B44EE25A39B38009BB588 /* PhotoAlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCollectionViewCell.swift; sourceTree = "<group>"; };
 		119DBCA5259F766D00CC9B2B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		119DBCA8259FD9E000CC9B2B /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		119DBCAA259FD9FB00CC9B2B /* CoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateRegion.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				11F52E3C259E529700720596 /* Main.storyboard */,
 				11F52E44259E529800720596 /* LaunchScreen.storyboard */,
 				11F6E1D025A1F63700DEDF6A /* MyAnnotation.swift */,
+				116B44EE25A39B38009BB588 /* PhotoAlbumCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				11F52E39259E529700720596 /* SceneDelegate.swift in Sources */,
 				11F6E1D425A2002700DEDF6A /* Client.swift in Sources */,
 				119DBCAB259FD9FB00CC9B2B /* CoordinateRegion.swift in Sources */,
+				116B44EF25A39B38009BB588 /* PhotoAlbumCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

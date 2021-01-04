@@ -12,21 +12,25 @@ import Foundation
 
 // MARK: - SearchResponse
 struct SearchResponse: Codable {
-    let photos: Photos
+    let dataResponse: DataResponse
     let stat: String
+    
+    private enum CodingKeys : String, CodingKey {
+        case dataResponse = "photos", stat
+    }
 }
 
 // MARK: - Photos
-struct Photos: Codable {
+struct DataResponse: Codable {
     let page: Int
     let pages: Int
     let perpage: Int
     let total: String
-    let photo: [Photo]
+    let photo: [PhotoResponse]
 }
 
 // MARK: - Photo
-struct Photo: Codable {
+struct PhotoResponse: Codable {
     let id, owner, secret, server: String
     let farm: Int
     let title: String

@@ -43,7 +43,7 @@ class Client {
         static let base = "https://www.flickr.com/services/rest/"
         
         case search(lat: Double, lon: Double, accuracy: Int = 11, contentType: Int = 1, perPage: Int, page: Int)
-        case image(server: String, id: String, secret: String, size: Int = 75)
+        case image(server: String, id: String, secret: String, size: String = "s")
         
         var stringValue: String {
             switch self {
@@ -63,15 +63,27 @@ class Client {
         }
     }
     
-    func getPhotosFrom(lat: Double, lon: Double) {
+    func getImage(from photo: PhotoResponse, completion: @escaping (_ imageData: Data?)->Void) {
+        let url = Endpoints.image(server: photo.server, id: photo.id, secret: photo.secret).url
+        DispatchQueue.global(qos: .userInitiated).async {
+            let data = try? Data(contentsOf: url)
+            completion(data)
+        }
+    }
+    
+    func getPhotosFrom(lat: Double, lon: Double, completion: @escaping (Result<SearchResponse, Error>)->Void) {
         var request = URLRequest(url: Endpoints.search(lat: lat, lon: lon, perPage: 15, page: 1).url, timeoutInterval: 30)
         request.httpMethod = HttpMethod.GET.rawValue
         doHttpRequest(request, modelType: SearchResponse.self) { (result) in
             switch result {
             case .success(let response):
-                print(response)
-            case .failure:
-                break
+                DispatchQueue.main.async {
+                    completion(.success(response))
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
     }
@@ -102,14 +114,11 @@ class Client {
             }
             
             do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let obj = try decoder.decode(modelType, from: data)
+                let obj = try JSONDecoder().decode(modelType, from: data)
                 DispatchQueue.main.async {
                     completion(.success(obj))
                 }
             } catch {
-                print(error)
                 DispatchQueue.main.async {
                     completion(.failure(error))
                 }
