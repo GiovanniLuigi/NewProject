@@ -84,8 +84,9 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
             let vc = storyboard?.instantiateViewController(withIdentifier: String(describing: PhotoAlbumViewController.self)) as? PhotoAlbumViewController {
             let pin = pins[index]
             vc.pin = pin
+            vc.annotation = annotation
             navigationController?.pushViewController(vc, animated: true)
-            view.setSelected(false, animated: false)
+            mapView.selectedAnnotations = []
         }
     }
 }

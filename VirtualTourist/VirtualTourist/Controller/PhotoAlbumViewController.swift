@@ -13,8 +13,9 @@ class PhotoAlbumViewController: UIViewController {
     
     private let reuseIdentifier = "imageCell"
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    @IBOutlet weak var mapView: MKMapView!
     var pin: Pin?
+    var annotation: MyAnnotation?
     
     var dataManager: DataManager {
         return DataManager.shared
@@ -22,13 +23,38 @@ class PhotoAlbumViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = self
+        title = "Photo Album"
+        setupCollectionView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        setupMapView()
         loadPhotos()
+    }
+    
+    private func setupMapView() {
+        if let annotation = annotation {
+            mapView.addAnnotation(annotation)
+            mapView.setCenter(annotation.coordinate, animated: false)
+            mapView.setCameraZoomRange(MKMapView.CameraZoomRange(maxCenterCoordinateDistance: CLLocationDistance(2000)), animated: true)
+        }
+    }
+    
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        let size = (view.frame.width - 10)/3
+        let cellSize = CGSize(width: size, height: size)
+
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical //.horizontal
+        layout.itemSize = cellSize
+        layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+        layout.minimumLineSpacing = 4
+        layout.minimumInteritemSpacing = 4
+        collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
     private func loadPhotos() {

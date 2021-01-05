@@ -43,7 +43,7 @@ class Client {
         static let base = "https://www.flickr.com/services/rest/"
         
         case search(lat: Double, lon: Double, accuracy: Int = 11, contentType: Int = 1, perPage: Int, page: Int)
-        case image(server: String, id: String, secret: String, size: String = "s")
+        case image(server: String, id: String, secret: String, size: String = "m")
         
         var stringValue: String {
             switch self {
@@ -123,8 +123,6 @@ class Client {
                     completion(.failure(error))
                 }
             }
-            
-            
         }.resume()
     }
     
