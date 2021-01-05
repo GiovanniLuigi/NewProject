@@ -12,11 +12,13 @@ import MapKit
 class PhotoAlbumViewController: UIViewController {
     
     private let reuseIdentifier = "imageCell"
+    @IBOutlet weak var newCollectionButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var noImagesLabel: UILabel!
     var pin: Pin?
     var annotation: MyAnnotation?
+    var page: Int = 1
     
     var dataManager: DataManager {
         return DataManager.shared
@@ -32,9 +34,14 @@ class PhotoAlbumViewController: UIViewController {
         super.viewWillAppear(animated)
         noImagesLabel.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: true)
+        page = 1
         
         setupMapView()
-        loadPhotos()
+        loadPhotos(page: page)
+    }
+    
+    private func toggleNewCollectionButton(isDownloading: Bool) {
+        newCollectionButton.isEnabled = !isDownloading
     }
     
     private func setupMapView() {
@@ -47,6 +54,7 @@ class PhotoAlbumViewController: UIViewController {
     
     private func setupCollectionView() {
         collectionView.dataSource = self
+        collectionView.delegate = self
         let size = (view.frame.width - 10)/3
         let cellSize = CGSize(width: size, height: size)
         
@@ -59,38 +67,59 @@ class PhotoAlbumViewController: UIViewController {
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
-    private func loadPhotos() {
+    private func loadPhotos(page: Int) {
         guard let pin = pin else {return}
         if pin.photos?.count ?? 0 == 0 {
-            Client.shared.getPhotosFrom(lat: pin.latitude, lon: pin.longitude) { [weak self] result in
+            toggleNewCollectionButton(isDownloading: true)
+            Client.shared.getPhotosFrom(lat: pin.latitude, lon: pin.longitude, page: page) { [weak self] result in
+                self?.toggleNewCollectionButton(isDownloading: false)
                 switch result {
                 case .success(let response):
                     if response.dataResponse.photo.count == 0 {
                         self?.noImagesLabel.isHidden = false
                     } else {
-                        for (i, photoResponse) in response.dataResponse.photo.enumerated() {
-                            guard let dataManager = self?.dataManager else {return}
-                            let newPhoto = Photo(context: dataManager.viewContext)
-                            pin.addToPhotos(newPhoto)
-                            dataManager.saveContext()
-                            Client.shared.getImage(from: photoResponse) { (data) in
-                                let indexPath = IndexPath(item: i, section: 0)
-                                let photo = pin.photos?.allObjects[i] as! Photo
-                                photo.imageData = data as NSObject?
-                                if let _ = self?.collectionView.cellForItem(at: indexPath) {
-                                    self?.collectionView.reloadItems(at: [indexPath])
+                        for (i, photoResponse) in
+                            response.dataResponse.photo.enumerated() {
+                                guard let dataManager = self?.dataManager else {return}
+                                let newPhoto = Photo(context: dataManager.viewContext)
+                                pin.addToPhotos(newPhoto)
+                                dataManager.saveContext()
+                                Client.shared.getImage(from: photoResponse) { (data) in
+                                    let indexPath = IndexPath(item: i, section: 0)
+                                    let photo = pin.photos?.allObjects[i] as! Photo
+                                    if data == nil {
+                                        pin.removeFromPhotos(photo)
+                                        dataManager.saveContext()
+                                        if let _ = self?.collectionView.cellForItem(at: indexPath) {
+                                            self?.collectionView.deleteItems(at: [indexPath])
+                                        }
+                                    } else {
+                                        photo.imageData = data as NSObject?
+                                        dataManager.saveContext()
+                                        if let _ = self?.collectionView.cellForItem(at: indexPath) {
+                                            self?.collectionView.reloadItems(at: [indexPath])
+                                        }
+                                    }
                                 }
-                                
-                            }
                         }
                         self?.collectionView.reloadData()
                     }
                 case .failure(let error):
+                    self?.toggleNewCollectionButton(isDownloading: false)
                     print(error)
                 }
             }
         }
     }
+    
+    @IBAction func didTapNewCollection(_ sender: Any) {
+        pin?.photos = nil
+        dataManager.saveContext()
+        collectionView.reloadData()
+        page += 1
+        loadPhotos(page: page)
+    }
+    
 }
 
 extension PhotoAlbumViewController: UICollectionViewDataSource {
@@ -111,5 +140,16 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
             return cell
         }
         return UICollectionViewCell()
+    }
+}
+
+extension PhotoAlbumViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let photo = pin?.photos?.allObjects[indexPath.row] as? Photo {
+            pin?.removeFromPhotos(photo)
+            dataManager.saveContext()
+            
+            collectionView.deleteItems(at: [indexPath])
+        }
     }
 }

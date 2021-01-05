@@ -73,8 +73,8 @@ class Client {
         }
     }
     
-    func getPhotosFrom(lat: Double, lon: Double, completion: @escaping (Result<SearchResponse, Error>)->Void) {
-        var request = URLRequest(url: Endpoints.search(lat: lat, lon: lon, perPage: 15, page: 1).url, timeoutInterval: 30)
+    func getPhotosFrom(lat: Double, lon: Double, page: Int = 1, perPage: Int = 15, completion: @escaping (Result<SearchResponse, Error>)->Void) {
+        var request = URLRequest(url: Endpoints.search(lat: lat, lon: lon, perPage: perPage, page: page).url, timeoutInterval: 30)
         request.httpMethod = HttpMethod.GET.rawValue
         doHttpRequest(request, modelType: SearchResponse.self) { (result) in
             switch result {
