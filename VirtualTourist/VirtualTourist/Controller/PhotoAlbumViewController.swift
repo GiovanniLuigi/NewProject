@@ -104,9 +104,15 @@ class PhotoAlbumViewController: UIViewController {
                         }
                         self?.collectionView.reloadData()
                     }
-                case .failure(let error):
+                case .failure:
                     self?.toggleNewCollectionButton(isDownloading: false)
-                    print(error)
+                    let alert = UIAlertController(title: "Error", message: "Not able to load images for this location", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default) {_ in
+                        self?.navigationController?.popViewController(animated: true)
+                    } )
+                    self?.present(alert, animated: true) {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
         }
