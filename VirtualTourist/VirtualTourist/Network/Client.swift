@@ -42,7 +42,7 @@ class Client {
     enum Endpoints {
         static let base = "https://www.flickr.com/services/rest/"
         
-        case search(lat: Double, lon: Double, accuracy: Int = 11, contentType: Int = 1, perPage: Int, page: Int)
+        case search(lat: Double, lon: Double, accuracy: Int = 6, contentType: Int = 1, perPage: Int, page: Int)
         case image(server: String, id: String, secret: String, size: String = "m")
         
         var stringValue: String {
@@ -67,7 +67,9 @@ class Client {
         let url = Endpoints.image(server: photo.server, id: photo.id, secret: photo.secret).url
         DispatchQueue.global(qos: .userInitiated).async {
             let data = try? Data(contentsOf: url)
-            completion(data)
+            DispatchQueue.main.async {
+                completion(data)
+            }
         }
     }
     

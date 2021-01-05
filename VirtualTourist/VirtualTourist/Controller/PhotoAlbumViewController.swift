@@ -14,6 +14,7 @@ class PhotoAlbumViewController: UIViewController {
     private let reuseIdentifier = "imageCell"
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var noImagesLabel: UILabel!
     var pin: Pin?
     var annotation: MyAnnotation?
     
@@ -26,9 +27,10 @@ class PhotoAlbumViewController: UIViewController {
         title = "Photo Album"
         setupCollectionView()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        noImagesLabel.isHidden = true
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         setupMapView()
@@ -47,7 +49,7 @@ class PhotoAlbumViewController: UIViewController {
         collectionView.dataSource = self
         let size = (view.frame.width - 10)/3
         let cellSize = CGSize(width: size, height: size)
-
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical //.horizontal
         layout.itemSize = cellSize
@@ -63,16 +65,25 @@ class PhotoAlbumViewController: UIViewController {
             Client.shared.getPhotosFrom(lat: pin.latitude, lon: pin.longitude) { [weak self] result in
                 switch result {
                 case .success(let response):
-                    for photoResponse in response.dataResponse.photo {
-                        Client.shared.getImage(from: photoResponse) { (data) in
+                    if response.dataResponse.photo.count == 0 {
+                        self?.noImagesLabel.isHidden = false
+                    } else {
+                        for (i, photoResponse) in response.dataResponse.photo.enumerated() {
                             guard let dataManager = self?.dataManager else {return}
                             let newPhoto = Photo(context: dataManager.viewContext)
-                            newPhoto.imageData = data as NSObject?
                             pin.addToPhotos(newPhoto)
                             dataManager.saveContext()
-                            
-                            self?.collectionView.reloadData()
+                            Client.shared.getImage(from: photoResponse) { (data) in
+                                let indexPath = IndexPath(item: i, section: 0)
+                                let photo = pin.photos?.allObjects[i] as! Photo
+                                photo.imageData = data as NSObject?
+                                if let _ = self?.collectionView.cellForItem(at: indexPath) {
+                                    self?.collectionView.reloadItems(at: [indexPath])
+                                }
+                                
+                            }
                         }
+                        self?.collectionView.reloadData()
                     }
                 case .failure(let error):
                     print(error)
@@ -80,10 +91,7 @@ class PhotoAlbumViewController: UIViewController {
             }
         }
     }
-    
-    
 }
-
 
 extension PhotoAlbumViewController: UICollectionViewDataSource {
     
@@ -96,11 +104,12 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
             
             if let photos = pin?.photos?.allObjects, let photo = photos[indexPath.row] as? Photo, let data = photo.imageData as? Data {
                 cell.imageView.image = UIImage(data: data)
+            } else {
+                cell.imageView.image = UIImage(named: "placeholder")
             }
             
             return cell
         }
         return UICollectionViewCell()
     }
-    
 }
