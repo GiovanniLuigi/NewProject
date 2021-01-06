@@ -48,7 +48,7 @@ class Client {
         var stringValue: String {
             switch self {
             case .search(let lat, let lon, let accuracy, let contentType, let perPage, let page):
-                return Endpoints.base + "?method=flickr.pho2tos.search&api_key=\(Auth.apiKey)&lat=\(lat)&lon=\(lon)&accuracy=\(accuracy)&content_type\(contentType)&per_page=\(perPage)&page=\(page)&format=json&nojsoncallback=1"
+                return Endpoints.base + "?method=flickr.photos.search&api_key=\(Auth.apiKey)&lat=\(lat)&lon=\(lon)&accuracy=\(accuracy)&content_type\(contentType)&per_page=\(perPage)&page=\(page)&format=json&nojsoncallback=1"
             case .image(let server, let id, let secret, let size):
                 return "https://live.staticflickr.com/\(server)/\(id)_\(secret)_\(size).jpg"
             }

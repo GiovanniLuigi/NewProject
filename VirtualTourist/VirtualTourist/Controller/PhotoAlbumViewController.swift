@@ -94,7 +94,7 @@ class PhotoAlbumViewController: UIViewController {
                                             self?.collectionView.deleteItems(at: [indexPath])
                                         }
                                     } else {
-                                        photo.imageData = data as NSObject?
+                                        photo.imageData = data
                                         dataManager.saveContext()
                                         if let _ = self?.collectionView.cellForItem(at: indexPath) {
                                             self?.collectionView.reloadItems(at: [indexPath])
@@ -137,7 +137,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PhotoAlbumCollectionViewCell {
             
-            if let photos = pin?.photos?.allObjects, let photo = photos[indexPath.row] as? Photo, let data = photo.imageData as? Data {
+            if let photos = pin?.photos?.allObjects, let photo = photos[indexPath.row] as? Photo, let data = photo.imageData {
                 cell.imageView.image = UIImage(data: data)
             } else {
                 cell.imageView.image = UIImage(named: "placeholder")
